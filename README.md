@@ -26,3 +26,7 @@ make
 All the command line arguments can be retrieved using the --help parameter. See the [wiki](https://github.com/edanssandes/MASA-Core/wiki/Command-line-examples) for a list of command line examples.
 
 
+### License:
+
+MASA-OmpSs is an open source project with public license (GPLv3). A copy of the [LICENSE](https://raw.githubusercontent.com/edanssandes/MASA-OmpSs/master/LICENSE) is maintained in this repository. 
+
