@@ -1,0 +1,26 @@
+#!/bin/bash
+export NX_DISABLECUDA=yes
+export NX_DISABLE_OPENCL=yes
+export NX_THREADS=4
+#export NX_INSTRUMENTATION=graph
+#export NX_DEPS=regions
+
+#export NX_SLEEPS=0
+#export NX_YIELDS=0
+#export NX_THROTTLE="dummy"
+#export NX_SCHEDULE=socket
+export NX_ARGS="--schedule-priority --no-schedule-smart-priority"
+export NX_ARGS="${NX_ARGS} --throttle-upper=200 --throttle-lower=1800"
+#export NX_ARGS="${NX_ARGS} --enable-block"
+#export NX_ARGS="${NX_ARGS} --disable-binding"
+#export NX_ARGS="--disable-binding"
+#export NX_ARGS="--throttle=dummy"
+
+#to enable profiling support
+#export NX_INSTRUMENTATION=extrae
+#export EXTRAE_BUFFER_SIZE=5000000
+
+
+#export NX_EXTRAE_FILE_NAME="masa_${height}_${width}"
+
+./masa-ompss ${@:1}
