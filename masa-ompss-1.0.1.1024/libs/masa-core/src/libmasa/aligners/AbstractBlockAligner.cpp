@@ -76,7 +76,7 @@ AbstractBlockAligner::AbstractBlockAligner(AbstractBlockProcessor* blockProcesso
 	 */
 	col = NULL;
 	row = NULL;
-
+	
 	/*
 	 *  defines the constant parameters to be returned in the
 	 *  getScoreParameters() method

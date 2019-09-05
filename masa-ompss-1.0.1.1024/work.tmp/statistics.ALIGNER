@@ -1,0 +1,12 @@
+###############################
+#  ALIGNER INITIALIZATION     #
+###############################
+
+MASA-OmpSs 1.0.1.1024  -  OmpSS tool for huge sequences alignment
+Linked with MASA - Malleable Architecture for Sequence Aligners - 1.3.9.1024
+University of Brasilia/UnB - Brazil 
+Copyright (c) 2010-2015 Edans Sandes - License GPLv3
+This program comes with ABSOLUTELY NO WARRANTY.
+
+./masa-starpu hiv.fasta hiv2.fasta
+

@@ -1,0 +1,16 @@
+###############################
+#  GLOBAL STATISTICS          #
+###############################
+          START:       0.0000 (   0)  avg.:     -nan
+      SEQUENCES:       0.4200 (   1)  avg.:   0.4200
+           INIT:       0.1060 (   1)  avg.:   0.1060
+         STAGE1:       0.7090 (   1)  avg.:   0.7090
+         STAGE2:       0.0000 (   0)  avg.:     -nan
+         STAGE3:       0.0000 (   0)  avg.:     -nan
+         STAGE4:       0.0000 (   0)  avg.:     -nan
+         STAGE5:       0.0000 (   0)  avg.:     -nan
+         STAGE6:       0.0000 (   0)  avg.:     -nan
+          TOTAL:       1.2350
+        Total: 1.2350
+       Matrix: 1.0316e+08
+        MCUPS: 83530.2120

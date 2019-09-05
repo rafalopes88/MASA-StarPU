@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include "libmasa/libmasa.hpp"
 #include "config.h"
-#include "OmpSsAligner.hpp"
+#include "StarPuAligner.hpp"
 
 /**
  * Header of Execution.
@@ -30,5 +30,5 @@
 #define HEADER 		PACKAGE_STRING"  -  OmpSS tool for huge sequences alignment"
 
 int main ( int argc, char** argv ) {
-	return libmasa_entry_point(argc, argv, new OmpSsAligner(), HEADER);
+	return libmasa_entry_point(argc, argv, new StarPuAligner(), HEADER);
 }

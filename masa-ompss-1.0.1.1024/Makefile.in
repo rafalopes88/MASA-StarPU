@@ -34,7 +34,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = masa-ompss$(EXEEXT)
+bin_PROGRAMS = masa-starpu$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(dist_doc_DATA) \
 	$(noinst_HEADERS) $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -54,12 +54,12 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(docdir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_masa_ompss_OBJECTS = ./src/masa_ompss-main.$(OBJEXT) \
-	./src/masa_ompss-OmpSsAligner.$(OBJEXT) \
-	./src/masa_ompss-OmpSsAlignerParameters.$(OBJEXT)
-masa_ompss_OBJECTS = $(am_masa_ompss_OBJECTS)
-masa_ompss_DEPENDENCIES = $(LIBMASA_PATH)/libmasa.a
-masa_ompss_LINK = $(CXXLD) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) \
+am_masa_starpu_OBJECTS = ./src/masa_starpu-main.$(OBJEXT) \
+	./src/masa_starpu-StarPuAligner.$(OBJEXT) \
+	./src/masa_starpu-StarPuAlignerParameters.$(OBJEXT)
+masa_starpu_OBJECTS = $(am_masa_starpu_OBJECTS)
+masa_starpu_DEPENDENCIES = $(LIBMASA_PATH)/libmasa.a
+masa_starpu_LINK = $(CXXLD) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/src
 depcomp = $(SHELL) $(top_srcdir)/admin/depcomp
@@ -70,8 +70,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(masa_ompss_SOURCES)
-DIST_SOURCES = $(masa_ompss_SOURCES)
+SOURCES = $(masa_starpu_SOURCES)
+DIST_SOURCES = $(masa_starpu_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -244,18 +244,18 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 SUBDIRS = $(LIBMASA_PATH)
-masa_ompss_CXXFLAGS = -malign-double -fno-strict-aliasing  -I$(TAREDOR_HOOKS_HOME)
-masa_ompss_LDADD = $(LIBMASA_PATH)/libmasa.a -lpthread $(TAREADOR_LDFLAGS)
-masa_ompss_SOURCES = \
+masa_starpu_CXXFLAGS = -malign-double -fno-strict-aliasing  -I$(TAREDOR_HOOKS_HOME)
+masa_starpu_LDADD = $(LIBMASA_PATH)/libmasa.a -lpthread $(pkg-config --libs starpu-1.2) $(TAREADOR_LDFLAGS) 
+masa_starpu_SOURCES = \
 ./src/main.cpp \
-./src/OmpSsAligner.cpp \
-./src/OmpSsAlignerParameters.cpp 
+./src/StarPuAligner.cpp \
+./src/StarPuAlignerParameters.cpp 
 
 dist_doc_DATA = README
-EXTRA_DIST = masa-ompss.script
+EXTRA_DIST = masa-starpu.script
 noinst_HEADERS = \
-./src/OmpSsAligner.hpp \
-./src/OmpSsAlignerParameters.hpp 
+./src/StarPuAligner.hpp \
+./src/StarPuAlignerParameters.hpp 
 
 all: all-recursive
 
@@ -353,28 +353,28 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ./src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-./src/masa_ompss-main.$(OBJEXT): src/$(am__dirstamp) \
+./src/masa_starpu-main.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-./src/masa_ompss-OmpSsAligner.$(OBJEXT): src/$(am__dirstamp) \
+./src/masa_starpu-StarPuAligner.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-./src/masa_ompss-OmpSsAlignerParameters.$(OBJEXT):  \
+./src/masa_starpu-StarPuAlignerParameters.$(OBJEXT):  \
 	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-masa-ompss$(EXEEXT): $(masa_ompss_OBJECTS) $(masa_ompss_DEPENDENCIES) $(EXTRA_masa_ompss_DEPENDENCIES) 
-	@rm -f masa-ompss$(EXEEXT)
-	$(masa_ompss_LINK) $(masa_ompss_OBJECTS) $(masa_ompss_LDADD) $(LIBS)
+masa-starpu$(EXEEXT): $(masa_starpu_OBJECTS) $(masa_starpu_DEPENDENCIES) $(EXTRA_masa_starpu_DEPENDENCIES) 
+	@rm -f masa-starpu$(EXEEXT)
+	$(masa_starpu_LINK) $(masa_starpu_OBJECTS) $(masa_starpu_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f ./src/masa_ompss-OmpSsAligner.$(OBJEXT)
-	-rm -f ./src/masa_ompss-OmpSsAlignerParameters.$(OBJEXT)
-	-rm -f ./src/masa_ompss-main.$(OBJEXT)
+	-rm -f ./src/masa_starpu-StarPuAligner.$(OBJEXT)
+	-rm -f ./src/masa_starpu-StarPuAlignerParameters.$(OBJEXT)
+	-rm -f ./src/masa_starpu-main.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./src/$(DEPDIR)/masa_ompss-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./src/$(DEPDIR)/masa_starpu-StarPuAligner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./src/$(DEPDIR)/masa_starpu-main.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -392,47 +392,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-./src/masa_ompss-main.o: ./src/main.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_ompss-main.o -MD -MP -MF ./src/$(DEPDIR)/masa_ompss-main.Tpo -c -o ./src/masa_ompss-main.o `test -f './src/main.cpp' || echo '$(srcdir)/'`./src/main.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_ompss-main.Tpo ./src/$(DEPDIR)/masa_ompss-main.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/main.cpp' object='./src/masa_ompss-main.o' libtool=no @AMDEPBACKSLASH@
+./src/masa_starpu-main.o: ./src/main.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_starpu-main.o -MD -MP -MF ./src/$(DEPDIR)/masa_starpu-main.Tpo -c -o ./src/masa_starpu-main.o `test -f './src/main.cpp' || echo '$(srcdir)/'`./src/main.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_starpu-main.Tpo ./src/$(DEPDIR)/masa_starpu-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/main.cpp' object='./src/masa_starpu-main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_ompss-main.o `test -f './src/main.cpp' || echo '$(srcdir)/'`./src/main.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_starpu-main.o `test -f './src/main.cpp' || echo '$(srcdir)/'`./src/main.cpp
 
-./src/masa_ompss-main.obj: ./src/main.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_ompss-main.obj -MD -MP -MF ./src/$(DEPDIR)/masa_ompss-main.Tpo -c -o ./src/masa_ompss-main.obj `if test -f './src/main.cpp'; then $(CYGPATH_W) './src/main.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/main.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_ompss-main.Tpo ./src/$(DEPDIR)/masa_ompss-main.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/main.cpp' object='./src/masa_ompss-main.obj' libtool=no @AMDEPBACKSLASH@
+./src/masa_starpu-main.obj: ./src/main.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_starpu-main.obj -MD -MP -MF ./src/$(DEPDIR)/masa_starpu-main.Tpo -c -o ./src/masa_starpu-main.obj `if test -f './src/main.cpp'; then $(CYGPATH_W) './src/main.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/main.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_starpu-main.Tpo ./src/$(DEPDIR)/masa_starpu-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/main.cpp' object='./src/masa_starpu-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_ompss-main.obj `if test -f './src/main.cpp'; then $(CYGPATH_W) './src/main.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/main.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_starpu-main.obj `if test -f './src/main.cpp'; then $(CYGPATH_W) './src/main.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/main.cpp'; fi`
 
-./src/masa_ompss-OmpSsAligner.o: ./src/OmpSsAligner.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_ompss-OmpSsAligner.o -MD -MP -MF ./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Tpo -c -o ./src/masa_ompss-OmpSsAligner.o `test -f './src/OmpSsAligner.cpp' || echo '$(srcdir)/'`./src/OmpSsAligner.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Tpo ./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/OmpSsAligner.cpp' object='./src/masa_ompss-OmpSsAligner.o' libtool=no @AMDEPBACKSLASH@
+./src/masa_starpu-StarPuAligner.o: ./src/StarPuAligner.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_starpu-StarPuAligner.o -MD -MP -MF ./src/$(DEPDIR)/masa_starpu-StarPuAligner.Tpo -c -o ./src/masa_starpu-StarPuAligner.o `test -f './src/StarPuAligner.cpp' || echo '$(srcdir)/'`./src/StarPuAligner.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_starpu-StarPuAligner.Tpo ./src/$(DEPDIR)/masa_starpu-StarPuAligner.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/StarPuAligner.cpp' object='./src/masa_starpu-StarPuAligner.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_ompss-OmpSsAligner.o `test -f './src/OmpSsAligner.cpp' || echo '$(srcdir)/'`./src/OmpSsAligner.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_starpu-StarPuAligner.o `test -f './src/StarPuAligner.cpp' || echo '$(srcdir)/'`./src/StarPuAligner.cpp
 
-./src/masa_ompss-OmpSsAligner.obj: ./src/OmpSsAligner.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_ompss-OmpSsAligner.obj -MD -MP -MF ./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Tpo -c -o ./src/masa_ompss-OmpSsAligner.obj `if test -f './src/OmpSsAligner.cpp'; then $(CYGPATH_W) './src/OmpSsAligner.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/OmpSsAligner.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Tpo ./src/$(DEPDIR)/masa_ompss-OmpSsAligner.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/OmpSsAligner.cpp' object='./src/masa_ompss-OmpSsAligner.obj' libtool=no @AMDEPBACKSLASH@
+./src/masa_starpu-StarPuAligner.obj: ./src/StarPuAligner.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_starpu-StarPuAligner.obj -MD -MP -MF ./src/$(DEPDIR)/masa_starpu-StarPuAligner.Tpo -c -o ./src/masa_starpu-StarPuAligner.obj `if test -f './src/StarPuAligner.cpp'; then $(CYGPATH_W) './src/StarPuAligner.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/StarPuAligner.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_starpu-StarPuAligner.Tpo ./src/$(DEPDIR)/masa_starpu-StarPuAligner.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/StarPuAligner.cpp' object='./src/masa_starpu-StarPuAligner.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_ompss-OmpSsAligner.obj `if test -f './src/OmpSsAligner.cpp'; then $(CYGPATH_W) './src/OmpSsAligner.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/OmpSsAligner.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_starpu-StarPuAligner.obj `if test -f './src/StarPuAligner.cpp'; then $(CYGPATH_W) './src/StarPuAligner.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/StarPuAligner.cpp'; fi`
 
-./src/masa_ompss-OmpSsAlignerParameters.o: ./src/OmpSsAlignerParameters.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_ompss-OmpSsAlignerParameters.o -MD -MP -MF ./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Tpo -c -o ./src/masa_ompss-OmpSsAlignerParameters.o `test -f './src/OmpSsAlignerParameters.cpp' || echo '$(srcdir)/'`./src/OmpSsAlignerParameters.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Tpo ./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/OmpSsAlignerParameters.cpp' object='./src/masa_ompss-OmpSsAlignerParameters.o' libtool=no @AMDEPBACKSLASH@
+./src/masa_starpu-StarPuAlignerParameters.o: ./src/StarPuAlignerParameters.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_starpu-StarPuAlignerParameters.o -MD -MP -MF ./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Tpo -c -o ./src/masa_starpu-StarPuAlignerParameters.o `test -f './src/StarPuAlignerParameters.cpp' || echo '$(srcdir)/'`./src/StarPuAlignerParameters.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Tpo ./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/StarPuAlignerParameters.cpp' object='./src/masa_starpu-StarPuAlignerParameters.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_ompss-OmpSsAlignerParameters.o `test -f './src/OmpSsAlignerParameters.cpp' || echo '$(srcdir)/'`./src/OmpSsAlignerParameters.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_starpu-StarPuAlignerParameters.o `test -f './src/StarPuAlignerParameters.cpp' || echo '$(srcdir)/'`./src/StarPuAlignerParameters.cpp
 
-./src/masa_ompss-OmpSsAlignerParameters.obj: ./src/OmpSsAlignerParameters.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_ompss-OmpSsAlignerParameters.obj -MD -MP -MF ./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Tpo -c -o ./src/masa_ompss-OmpSsAlignerParameters.obj `if test -f './src/OmpSsAlignerParameters.cpp'; then $(CYGPATH_W) './src/OmpSsAlignerParameters.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/OmpSsAlignerParameters.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Tpo ./src/$(DEPDIR)/masa_ompss-OmpSsAlignerParameters.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/OmpSsAlignerParameters.cpp' object='./src/masa_ompss-OmpSsAlignerParameters.obj' libtool=no @AMDEPBACKSLASH@
+./src/masa_starpu-StarPuAlignerParameters.obj: ./src/StarPuAlignerParameters.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -MT ./src/masa_starpu-StarPuAlignerParameters.obj -MD -MP -MF ./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Tpo -c -o ./src/masa_starpu-StarPuAlignerParameters.obj `if test -f './src/StarPuAlignerParameters.cpp'; then $(CYGPATH_W) './src/StarPuAlignerParameters.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/StarPuAlignerParameters.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) ./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Tpo ./src/$(DEPDIR)/masa_starpu-StarPuAlignerParameters.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='./src/StarPuAlignerParameters.cpp' object='./src/masa_starpu-StarPuAlignerParameters.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_ompss_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_ompss-OmpSsAlignerParameters.obj `if test -f './src/OmpSsAlignerParameters.cpp'; then $(CYGPATH_W) './src/OmpSsAlignerParameters.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/OmpSsAlignerParameters.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(masa_starpu_CXXFLAGS) $(CXXFLAGS) -c -o ./src/masa_starpu-StarPuAlignerParameters.obj `if test -f './src/StarPuAlignerParameters.cpp'; then $(CYGPATH_W) './src/StarPuAlignerParameters.cpp'; else $(CYGPATH_W) '$(srcdir)/./src/StarPuAlignerParameters.cpp'; fi`
 install-dist_docDATA: $(dist_doc_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(docdir)" || $(MKDIR_P) "$(DESTDIR)$(docdir)"

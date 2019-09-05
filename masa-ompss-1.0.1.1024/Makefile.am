@@ -3,19 +3,19 @@ SUBDIRS = $(LIBMASA_PATH)
 
 CXX=$(mcxx)
 
-bin_PROGRAMS = masa-ompss
-masa_ompss_CXXFLAGS = -malign-double -fno-strict-aliasing  -I$(TAREDOR_HOOKS_HOME)
-masa_ompss_LDADD  = $(LIBMASA_PATH)/libmasa.a -lpthread $(TAREADOR_LDFLAGS)
-masa_ompss_SOURCES = \
+bin_PROGRAMS = masa-starpu
+masa_starpu_CXXFLAGS = -malign-double -fno-strict-aliasing  -I$(TAREDOR_HOOKS_HOME)
+masa_starpu_LDADD  = $(LIBMASA_PATH)/libmasa.a -lpthread $(pkg-config --libs starpu-1.2) $(TAREADOR_LDFLAGS) 
+masa_starpu_SOURCES = \
 ./src/main.cpp \
-./src/OmpSsAligner.cpp \
-./src/OmpSsAlignerParameters.cpp 
+./src/StarPuAligner.cpp \
+./src/StarPuAlignerParameters.cpp 
 dist_doc_DATA = README
-EXTRA_DIST = masa-ompss.script
+EXTRA_DIST = masa-starpu.script
 
 noinst_HEADERS = \
-./src/OmpSsAligner.hpp \
-./src/OmpSsAlignerParameters.hpp 
+./src/StarPuAligner.hpp \
+./src/StarPuAlignerParameters.hpp 
 
 dist-clone-link:
 	@if test -L $(LIBMASA_PATH); then \

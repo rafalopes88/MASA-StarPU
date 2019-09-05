@@ -39,7 +39,7 @@ if test "x$mcxx" = "xno" ; then
     AC_MSG_ERROR([Mercurium compiler not found. The aligner cannot be built.])
 fi
 
-OMPSS="--ompss -k"
+OMPSS="$(pkg-config --cflags starpu-1.2) -k"
 
 AC_ARG_ENABLE([instrument],
 	AC_HELP_STRING([--enable-instrument],[Enable OmpSs instrumentation]),

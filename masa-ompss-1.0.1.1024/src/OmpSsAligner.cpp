@@ -28,7 +28,7 @@
 
 #include "config.h"
 
-#define RECOMMENDED_BLOCK_SIZE	(1024)
+#define RECOMMENDED_BLOCK_SIZE	(64)
 
 /**
  * Constructor
