@@ -1,18 +1,12 @@
 # MASA-StarPU
 
 <p align="justify">
-The <b>MASA-StarPU extension</b> is used with the <a href="https://github.com/edanssandes/MASA-Core">MASA architecture</a> to align DNA sequences of unrestricted size with the Smith-Waterman/Needleman-Wunsch algorithms combined with Myers-Miller. It uses the <a href="https://pm.bsc.es/StarPU">StarPUs Programming model</a> to accelerate the computation time in CPU. 
+The <b>MASA-StarPU extension</b> is used with the <a href="https://github.com/edanssandes/MASA-Core">MASA architecture</a> to align DNA sequences of unrestricted size with multiple task scheduling policies provided by StarPU.
 </p>
-
-### Download
-
-Latest Version: [masa-starpu.tar.gz](releases/masa-StarPU-1.0.1.1024.tar.gz?raw=true)
-
 
 ### Compiling (masa-StarPU)
 
 ```
-tar -xvzf masa-starpu.tar.gz
 cd masa-starpu
 ./configure
 make
